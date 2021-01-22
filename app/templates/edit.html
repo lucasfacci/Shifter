@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Nova Publicação
+{% endblock %}
+
+{% block main %}
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">
+    IMPORTANTE: Informações sobre a publicação
+</button>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Informações sobre a publicação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Para uma melhor formatação das publicações na página inicial do site:</strong></p>
+                <p><strong>1. </strong>A imagem da publicação deve ser do tipo "paisagem" (horizontal). Não inserir
+                    imagens do tipo "retrato" (vertical);</p>
+                <p><strong>2. </strong>A imagem da publicação deve ser de preferência de dimensão 900 x 450 ou maior,
+                    desde que seja proporcionalmente semelhante;</p>
+                <p><strong>3. </strong>O título da publicação foi limitado entre no mínimo 5 e no máximo 45 caractéres
+                    (barra de espaço e caractéres especiais inclusos).</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<h2 class="row justify-content-center"><strong>Editar Publicação</strong></h2>
+<br>
+<div>
+    <form action="/editar/{{ new.id }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <select class="form-control" name="new_type" id="new_type" required="">
+                {% if new.new_type == "Big Tech" %}
+                <option value="Big Tech" selected>Big Tech</option>
+                {% else %}
+                <option value="Big Tech">Big Tech</option>
+                {% endif %}
+                {% if new.new_type == "Opinião" %}
+                <option value="Opinião" selected>Opinião</option>
+                {% else %}
+                <option value="Opinião">Opinião</option>
+                {% endif %}
+                {% if new.new_type == "Mobilidade" %}
+                <option value="Mobilidade" selected>Mobilidade</option>
+                {% else %}
+                <option value="Mobilidade">Mobilidade</option>
+                {% endif %}
+                {% if new.new_type == "AV/Games" %}
+                <option value="AV/Games" selected>AV/Games</option>
+                {% else %}
+                <option value="AV/Games">AV/Games</option>
+                {% endif %}
+                {% if new.new_type == "Inovação" %}
+                <option value="Inovação" selected>Inovação</option>
+                {% else %}
+                <option value="Inovação">Inovação</option>
+                {% endif %}
+                {% if new.new_type == "Ciência" %}
+                <option value="Ciência" selected>Ciência</option>
+                {% else %}
+                <option value="Ciência">Ciência</option>
+                {% endif %}
+                {% if new.new_type == "Segurança" %}
+                <option value="Segurança" selected>Segurança</option>
+                {% else %}
+                <option value="Segurança">Segurança</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="form-group">
+            <input id="image_path" class="form-control" name="image_path" required="" type="file">
+        </div>
+        <div class="form-group">
+            <input id="title" class="form-control" name="title" placeholder="Título" required="" type="text"
+                value="{{ new.title }}">
+        </div>
+        <div class="form-group">
+            <textarea id="content" class="form-control" name="content" placeholder="Conteúdo"
+                required="">{{ new.content }}</textarea>
+        </div>
+        <div class="form-group">
+            <b class="row justify-content-center">Destacar publicação?</b>
+            <input id="top" class="form-control" name="top" type="checkbox">
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info" type="submit">Salvar alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

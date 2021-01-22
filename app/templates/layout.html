@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <link href="{{ url_for('static', filename='/favicon.png') }}" rel="icon">
+    <title>Shifter - {% block title %}{% endblock %}</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/blog/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <header class="py-3 bg-dark container-fluid">
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="col-4 pt-1">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal"
+                        style="margin-left: 20%">
+                        Newsletter
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Newsletter</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="row justify-content-center">Inscreva-se em nossa newsletter:</p>
+                                    <div class="row justify-content-center">
+                                        <form action="{{ url_for('newsletter') }}" method="POST">
+                                            {{ newsletter_form.csrf_token }}
+                                            <div class="form-group">
+                                                {{ newsletter_form.name(class="form-control", placeholder="Nome") }}
+                                                {% if newsletter_form.errors.name %}
+                                                <div class="alert alert-danger" role="alert">
+                                                    <ul>
+                                                        {% for i in newsletter_form.errors.name %}
+                                                        <li>{{ i }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ newsletter_form.email(class="form-control", type="email", placeholder="E-mail") }}
+                                                {% if newsletter_form.errors.email %}
+                                                <div class="alert alert-danger" role="alert">
+                                                    <ul>
+                                                        {% for i in newsletter_form.errors.email %}
+                                                        <li>{{ i }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                            <br>
+                                            <div class="text-center">
+                                                <button class="btn btn-info" type="submit">Inscrever-se</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 text-center">
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='logo.png') }}"
+                            alt="Shifter - Cultura digital decifrada" width="75%" height="75%">
+                    </a>
+                </div>
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                    <a class="text-white" href="{{ url_for('about') }}" aria-label="Search" style="margin-right: 25%">
+                        Sobre
+                    </a>
+                    {% if current_user.is_authenticated %}
+                    <div class="fixed-bottom">
+                        <div class="collapse" id="navbarToggleExternalContent">
+                            <div class="bg-dark p-4">
+                                <h5 class="text-info h4"><strong>Menu administrativo</strong></h5>
+                                <a class="p-2 text-white" href="{{ url_for('new') }}">Publicar</a>
+                                <a class="p-2 text-white" href="{{ url_for('account') }}">Minha Conta</a>
+                                <a class="p-2 text-white" href="{{ url_for('subscribers') }}">Newsletter</a>
+                                <a class="p-2 text-danger" href="{{ url_for('logout') }}">Sair</a>
+                            </div>
+                        </div>
+                        <nav class="navbar navbar-dark bg-dark">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                        </nav>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-scroller py-1 mb-2 container">
+            <nav class="nav d-flex justify-content-between">
+                <a class="p-2 text-muted" href="{{ url_for('category', new_type='bigtech', number=1) }}">Big Tech</a>
+                <a class="p-2 text-muted" href="{{ url_for('category', new_type='opiniao', number=1) }}">Opinião</a>
+                <a class="p-2 text-muted" href="{{ url_for('category', new_type='mobilidade', number=1) }}">Mobilidade</a>
+                <a class="p-2 text-muted" href="{{ url_for('category', new_type='avgames', number=1) }}">AV/Games</a>
+                <a class="p-2 text-muted" href="{{ url_for('category', new_type='inovacao', number=1) }}">Inovação</a>
+                <a class="p-2 text-muted" href="{{ url_for('category', new_type='ciencia', number=1) }}">Ciência</a>
+                <a class="p-2 text-muted" href="{{ url_for('category', new_type='seguranca', number=1) }}">Segurança</a>
+            </nav>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        {% if message == "Acesso Negado." %}
+        <div class="alert alert-danger container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Acesso Permitido." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Desconectado." %}
+        <div class="alert alert-info container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "As senhas não são iguais." %}
+        <div class="alert alert-danger container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Senha alterada com sucesso." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Inscrito com sucesso." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Você já foi inscrito anteriormente." %}
+        <div class="alert alert-warning container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Excluído com sucesso." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Editado com sucesso." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Nome de usuário alterado com sucesso." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "Nome alterado com sucesso." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% elif message == "E-mail alterado com sucesso." %}
+        <div class="alert alert-success container" role="alert">
+            <ul class=flashes>
+                <li>{{ message }}</li>
+            </ul>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <main class="p-5">
+            {% block main %}{% endblock %}
+        </main>
+        <div>
+            <footer class="footer" style="margin: 1%">
+                <div class="container text-center">
+                    <span class="text-muted">© Copyright <strong>Shifter</strong>. 2020</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

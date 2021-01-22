@@ -1,0 +1,2 @@
+# Shifter
+A news website template made using Python, Flask and SQL. In it, it's possible to create, edit and delete news. But more than that, it has the option for the website editor to change account information, and to copy the email of the interested readers to send then the newsleter by pasting it in the email. In the website interface, it's possible to filter the news based in the categories too.

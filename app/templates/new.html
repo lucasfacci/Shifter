@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Nova Publicação
+{% endblock %}
+
+{% block main %}
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">
+    IMPORTANTE: Informações sobre a publicação
+</button>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Informações sobre a publicação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Para uma melhor formatação das publicações na página inicial do site:</strong></p>
+                <p><strong>1. </strong>A imagem da publicação deve ser do tipo "paisagem" (horizontal). Não inserir
+                    imagens do tipo "retrato" (vertical);</p>
+                <p><strong>2. </strong>A imagem da publicação deve ser de preferência de dimensão 900 x 450 ou maior,
+                    desde que seja proporcionalmente semelhante;</p>
+                <p><strong>3. </strong>O título da publicação foi limitado entre no mínimo 5 e no máximo 45 caractéres
+                    (barra de espaço e caractéres especiais inclusos).</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<h2 class="row justify-content-center"><strong>Nova Publicação</strong></h2>
+<br>
+<div>
+    <form action="{{ url_for('new') }}" method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.new_type(class="form-control") }}
+            {% if form.errors.new_type %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in form.errors.new_type %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.image_path(class="form-control") }}
+            {% if form.errors.image_path %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in form.errors.image_path %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.title(class="form-control", placeholder="Título") }}
+            {% if form.errors.title %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in form.errors.title %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.content(class="form-control", placeholder="Conteúdo") }}
+            {% if form.errors.content %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in form.errors.content %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <b class="row justify-content-center">Destacar publicação?</b>
+            {{ form.top(class="form-control") }}
+            {% if form.errors.top %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in form.errors.top %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info" type="submit">Publicar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

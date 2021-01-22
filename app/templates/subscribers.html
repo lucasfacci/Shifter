@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Lista Newsletter
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <h2><strong>Lista de inscritos na Newsletter</strong></h2>
+    <h5 class="text-danger"><strong>Copiar e colar no "Cco" do email!</strong></h5>
+    <br>
+    <div>
+        <p>
+            {{ allEmails }}
+        </p>
+    </div>
+</div>
+{% endblock %}

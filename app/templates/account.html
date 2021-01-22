@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Minha Conta
+{% endblock %}
+
+{% block main %}
+<h2 class="row justify-content-center"><strong>Minha Conta</strong></h2>
+<br>
+<h4 class="row justify-content-center">Alterar Nome de Usuário</h4>
+<div class="row justify-content-center">
+    <form action="{{ url_for('account') }}" method="POST">
+        {{ username_form.csrf_token }}
+        <div class="form-group">
+            {{ username_form.username(class="form-control", placeholder="Novo Nome de Usuário") }}
+            {% if username_form.errors.username %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in username_form.errors.username %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info" type="submit">Alterar Nome de Usuário</button>
+        </div>
+    </form>
+</div>
+<br>
+<h4 class="row justify-content-center">Alterar Senha</h4>
+<div class="row justify-content-center">
+    <form action="{{ url_for('account') }}" method="POST">
+        {{ password_form.csrf_token }}
+        <div class="form-group">
+            {{ password_form.password(class="form-control", placeholder="Nova Senha") }}
+            {% if password_form.errors.password %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in password_form.errors.password %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ password_form.confirmation(class="form-control", placeholder="Confirmação") }}
+            {% if password_form.errors.confirmation %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in password_form.errors.confirmation %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info" type="submit">Alterar Senha</button>
+        </div>
+    </form>
+</div>
+<br>
+<h4 class="row justify-content-center">Alterar Nome</h4>
+<div class="row justify-content-center">
+    <form action="{{ url_for('account') }}" method="POST">
+        {{ name_form.csrf_token }}
+        <div class="form-group">
+            {{ name_form.name(class="form-control", placeholder="Novo Nome") }}
+            {% if name_form.errors.name %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in name_form.errors.name %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info" type="submit">Alterar Nome</button>
+        </div>
+    </form>
+</div>
+<br>
+<h4 class="row justify-content-center">Alterar E-mail</h4>
+<div class="row justify-content-center">
+    <form action="{{ url_for('account') }}" method="POST">
+        {{ email_form.csrf_token }}
+        <div class="form-group">
+            {{ email_form.email(class="form-control", placeholder="Novo E-mail") }}
+            {% if email_form.errors.email %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for i in email_form.errors.email %}
+                    <li>{{ i }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        <div class="text-center">
+            <button class="btn btn-info" type="submit">Alterar E-mail</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
